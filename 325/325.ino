@@ -19,13 +19,13 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   forward();
-  delay(3000);
+  delay(1000);
   backward();
-  delay(3000);
+  delay(1000);
   left();
-  delay(1000);
+  delay(300);
   right();
-  delay(1000);
+  delay(600);
   stop();
   delay(5000);
 }
@@ -33,33 +33,33 @@ void loop() {
 void forward() {
   digitalWrite(direction1, LOW);
   digitalWrite(direction2, HIGH);
-  analogWrite(speed1, kMotorPwm);
-  analogWrite(speed2, kMotorPwm);
+  analogWrite(speed1, kMotorPwm); // left
+  analogWrite(speed2, 230); // right
 }
 
 void backward() {
   digitalWrite(direction1, HIGH);
   digitalWrite(direction2, LOW);
   analogWrite(speed1, kMotorPwm);
-  analogWrite(speed2, kMotorPwm);
+  analogWrite(speed2, 230);
 
   // LOW = motor backward && full speed turning counterclockwise
 }
 
 void left() {
 
-  digitalWrite(direction1, LOW);
+  digitalWrite(direction1, HIGH);
   digitalWrite(direction2, HIGH);
   analogWrite(speed1, kMotorPwm);
-  analogWrite(speed2, kMotorPwm);
+  analogWrite(speed2, 230);
 }
 
 void right() {
 
-  digitalWrite(direction1, HIGH);
+  digitalWrite(direction1, LOW);
   digitalWrite(direction2, LOW);
   analogWrite(speed1, kMotorPwm);
-  analogWrite(speed2, kMotorPwm);
+  analogWrite(speed2, 230);
 }
 
 void stop() {
