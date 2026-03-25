@@ -26,17 +26,19 @@ void loop() {
   delay(500);
   right();
   delay(500);
+  stop();
+  delay(5000);
 }
 
 void forward() {
-  digitalWrite(direction1, HIGH);
+  digitalWrite(direction1, LOW);
   digitalWrite(direction2, HIGH);
   analogWrite(speed1, kMotorPwm);
   analogWrite(speed2, kMotorPwm);
 }
 
 void backward() {
-  digitalWrite(direction1, LOW);
+  digitalWrite(direction1, HIGH);
   digitalWrite(direction2, LOW);
   analogWrite(speed1, kMotorPwm);
   analogWrite(speed2, kMotorPwm);
@@ -58,4 +60,11 @@ void right() {
   digitalWrite(direction2, LOW);
   analogWrite(speed1, kMotorPwm);
   analogWrite(speed2, kMotorPwm);
+}
+
+void stop() {
+  digitalWrite(direction1, LOW);
+  digitalWrite(direction2, LOW);
+  analogWrite(speed1, 0);
+  analogWrite(speed2, 0);
 }
