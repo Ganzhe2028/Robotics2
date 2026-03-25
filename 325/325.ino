@@ -23,9 +23,9 @@ void loop() {
   backward();
   delay(3000);
   left();
-  delay(500);
+  delay(1000);
   right();
-  delay(500);
+  delay(1000);
   stop();
   delay(5000);
 }
