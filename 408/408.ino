@@ -1,12 +1,14 @@
 #include <Arduino.h>
 
-// PWM 调速：HIGH 只是数值 1，占空比太低，电机往往看起来“完全不动”。全速用 255。
+// PWM 调速：全速用 255。
 const uint8_t kMotorPwm = 255;
 
 int speed1 = 5;
 int direction1 = 7;
 int speed2 = 6;
 int direction2 = 4;
+const int LEFT_SENSOR  = 2;
+const int RIGHT_SENSOR = 3;
 
 void setup() {
   // put your setup code here, to run once:
@@ -14,34 +16,61 @@ void setup() {
   pinMode(direction2, OUTPUT);
   pinMode(speed1, OUTPUT);
   pinMode(speed2, OUTPUT);
+
+  Serial.begin(9600);
+  pinMode(LEFT_SENSOR,  INPUT_PULLUP);
+  pinMode(RIGHT_SENSOR, INPUT_PULLUP);
+  Serial.println("0=黑 1=白");
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  forward();
-  delay(1000);
-  backward();
-  delay(1000);
-  left();
-  delay(300);
-  right();
-  delay(600);
-  stop();
-  delay(5000);
+  int L = digitalRead(LEFT_SENSOR);
+  int R = digitalRead(RIGHT_SENSOR);
+  
+  Serial.print("L:");
+  Serial.print(L);
+  Serial.print(" R:");
+  Serial.println(R);
+  
+  if (L == 0 && R == 0) {
+    forward();
+
+  } else if (L == 0 && R == 1) {
+    backward();
+    left();
+    // delay(300);
+    // left();
+    // delay(300);
+  } else if (L == 1 && R == 0) {
+    backward();
+    right();
+    // delay(300);
+    // right();
+    // delay(300);
+
+  } else if (L == 1 && R == 1) {
+    backward();
+    backward();
+    backward();
+    backward();
+    backward();
+    // delay(500);
+  }
 }
 
 void forward() {
   digitalWrite(direction1, LOW);
   digitalWrite(direction2, HIGH);
   analogWrite(speed1, kMotorPwm); // left
-  analogWrite(speed2, 230); // right
+  analogWrite(speed2, kMotorPwm); // right
 }
 
 void backward() {
   digitalWrite(direction1, HIGH);
   digitalWrite(direction2, LOW);
   analogWrite(speed1, kMotorPwm);
-  analogWrite(speed2, 230);
+  analogWrite(speed2, kMotorPwm);
 
   // LOW = motor backward && full speed turning counterclockwise
 }
@@ -51,7 +80,7 @@ void left() {
   digitalWrite(direction1, HIGH);
   digitalWrite(direction2, HIGH);
   analogWrite(speed1, kMotorPwm);
-  analogWrite(speed2, 230);
+  analogWrite(speed2, 220);
 }
 
 void right() {
@@ -59,7 +88,7 @@ void right() {
   digitalWrite(direction1, LOW);
   digitalWrite(direction2, LOW);
   analogWrite(speed1, kMotorPwm);
-  analogWrite(speed2, 230);
+  analogWrite(speed2, 220);
 }
 
 void stop() {
