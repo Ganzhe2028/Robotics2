@@ -44,18 +44,18 @@ void loop() {
     // delay(300);
   } else if (L == 1 && R == 0) {
     backward();
+    // delay(300);
     right();
+    // delay(300);
     // delay(300);
     // right();
     // delay(300);
 
   } else if (L == 1 && R == 1) {
     backward();
-    backward();
-    backward();
-    backward();
-    backward();
-    // delay(500);
+    delay(500);
+    right();
+    delay(300);
   }
 }
 
