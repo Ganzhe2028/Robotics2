@@ -29,25 +29,25 @@ void loop() {
     forward();
   }else if(((digitalRead(LeftSensor))==1)&&((digitalRead(RightSensor))==0)){
     backward();
-    delay(200); 
-    right();
-    delay(200);
-    forward();
-    delay(100);
+    // delay(200); 
+    // right();
+    // delay(200);
+    // forward();
+    // delay(100);
   }else if(((digitalRead(LeftSensor))==0)&&((digitalRead(RightSensor))==1)){
     backward();
-    delay(200); 
-    left();
-    delay(200);
-    forward();
-    delay(100);
+    // delay(200); 
+    // left();
+    // delay(200);
+    // forward();
+    // delay(100);
   }else{
     backward();
-    delay(200); 
-    left();
-    delay(400);
-    forward();
-    delay(100);
+    // delay(200); 
+    // left();
+    // delay(400);
+    // forward();
+    // delay(100);
   }
 }
 
@@ -60,7 +60,7 @@ void forward() {
 
 void backward() {
   digitalWrite(direction1, LOW);
-  digitalWrite(direction2, LOW);
+  digitalWrite(direction2, HIGH);
   analogWrite(speed1, high1);
   analogWrite(speed2, high);
 
