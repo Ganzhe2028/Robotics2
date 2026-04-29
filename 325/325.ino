@@ -3,9 +3,9 @@
 // PWM 调速：HIGH 只是数值 1，占空比太低，电机往往看起来“完全不动”。全速用 255。
 const uint8_t kMotorPwm = 255;
 
-int speed1 = 5;
+int speed1 = 5; //pin
 int direction1 = 4;
-int speed2 = 6;
+int speed2 = 6; //pin
 int direction2 = 7;
 
 void setup() {
@@ -27,7 +27,7 @@ void loop() {
   right();
   delay(600);
   stop();
-  delay(5000);
+  delay(1000);
 }
 
 void forward() {
