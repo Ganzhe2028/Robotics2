@@ -8,6 +8,8 @@ const uint8_t low = 0;
 const byte medianFilterWindowSize = 5;
 const byte LEFT_DIST_SENSOR_PIN = A0;
 const byte RIGHT_DIST_SENSOR_PIN = A2;
+const unsigned int TARGET_DISTANCE_MM = 400;
+const int WHITE = HIGH;
 
 SharpDistSensor leftDistSensor(LEFT_DIST_SENSOR_PIN, medianFilterWindowSize);
 SharpDistSensor rightDistSensor(RIGHT_DIST_SENSOR_PIN, medianFilterWindowSize);
@@ -37,6 +39,10 @@ void loop() {
   int rightRaw = analogRead(RIGHT_DIST_SENSOR_PIN);
   unsigned int leftDistance = leftDistSensor.getDist();
   unsigned int rightDistance = rightDistSensor.getDist();
+  bool leftWhite = leftLine == WHITE;
+  bool rightWhite = rightLine == WHITE;
+  bool leftSeen = leftDistance < TARGET_DISTANCE_MM;
+  bool rightSeen = rightDistance < TARGET_DISTANCE_MM;
 
   Serial.print("L:");
   Serial.print(leftLine);
@@ -52,34 +58,26 @@ void loop() {
   Serial.print(rightDistance);
   Serial.println("mm");
 
-  if((leftLine==0)&&(rightLine==0)){
-    if (leftDistance < 600) {
+  if (leftWhite || rightWhite) {
+    backward();
+    delay(100);
+
+    if (leftWhite && !rightWhite) {
       right();
-      delay(30);
-      forward();
-    } else if (rightDistance < 600) {
-      left();
-      delay(30);
-      forward();
     } else {
-      forward();
+      left();
     }
-  }else if((leftLine==1)&&(rightLine==0)){
-    backward();
-    delay(100);
-    right();
+
     delay(500);
-  }else if((leftLine==0)&&(rightLine==1)){
-    right();
-    backward();
-    delay(100);
+    return;
+  }
+
+  if (leftSeen && !rightSeen) {
     left();
-    delay(500);
-  }else if((leftLine==1)&&(rightLine==1)){
-    backward();
-    delay(100); 
-    left();
-    delay(500);
+  } else if (rightSeen && !leftSeen) {
+    right();
+  } else {
+    forward();
   }
 
 }

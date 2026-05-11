@@ -16,8 +16,8 @@ const byte DIST_SENSOR_A2_PIN = A2; //Right sensor is on A2 to avoid conflict wi
 SharpDistSensor distSensorA0(DIST_SENSOR_A0_PIN, medianFilterWindowSize);
 SharpDistSensor distSensorA2(DIST_SENSOR_A2_PIN, medianFilterWindowSize);
 
-const int LEFT_SENSOR  = 2;
-const int RIGHT_SENSOR = 3;
+const int LEFT_SENSOR  = 3;
+const int RIGHT_SENSOR = 2;
 
 void setup() {
   Serial.begin(9600);

@@ -25,31 +25,26 @@ void setup() {
 }
 
 void loop() {
-  Serial.print("L:");
-  Serial.print(digitalRead(LeftSensor));
-  Serial.print(" R:");
-  Serial.println(digitalRead(RightSensor));
-
   if(((digitalRead(LeftSensor))==0)&&((digitalRead(RightSensor))==0)){
     forward();
-  }else if(((digitalRead(LeftSensor))==1)&&((digitalRead(RightSensor))==0)){
-    backward();
+  // }else if(((digitalRead(LeftSensor))==1)&&((digitalRead(RightSensor))==0)){
+  //   // backward();
+  //   // delay(100);
+  //   right();
+  //   delay(550);
+  // }else if(((digitalRead(LeftSensor))==0)&&((digitalRead(RightSensor))==1)){
+  //   // backward();
+  //   // delay(100);
+  //   left();
+  //   delay(550);
+  // }else if(((digitalRead(LeftSensor))==1)&&((digitalRead(RightSensor))==1)){
+  //   // backward();
+  //   // delay(100); 
+  //   left();
+  //   delay(550);
+  }else{
+    stop();
     delay(300);
-    left();
-    delay(300);
-  }else if(((digitalRead(LeftSensor))==0)&&((digitalRead(RightSensor))==1)){
-    backward();
-    delay(300);
-    right();
-    delay(300);
-  }else if(((digitalRead(LeftSensor))==1)&&((digitalRead(RightSensor))==1)){
-    backward();
-    delay(500); 
-    left();
-    delay(300);
-  // }else{
-  //   stop();
-  //   delay(300);
   }
 }
 
